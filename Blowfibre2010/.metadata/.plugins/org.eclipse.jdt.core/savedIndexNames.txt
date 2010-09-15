@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+C:\Users\patrik\Documents\My Dropbox\Git\Blowfibre\Blowfibre\Blowfibre2010\.metadata\.plugins\org.eclipse.jdt.core
