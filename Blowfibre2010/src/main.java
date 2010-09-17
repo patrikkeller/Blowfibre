@@ -4,7 +4,7 @@ public class main {
 		// GUI ist in Klasse MyGui
         raumGui window = new raumGui();
         
-        ConnectionGui conWindow = new ConnectionGui();
+        
         
         
         }

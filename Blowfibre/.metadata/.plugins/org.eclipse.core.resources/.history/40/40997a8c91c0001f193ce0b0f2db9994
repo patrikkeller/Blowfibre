@@ -1,0 +1,279 @@
+
+import java.awt.FileDialog;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class lineGui {
+	private JFrame frame;
+	
+	private JMenuBar bar;
+	private JMenu fileMenu;
+	private JMenuItem loadFile, saveFile;
+	private FileDialog fd;
+	
+	private JPanel panel0;
+	private JButton but0;
+	private JLabel label0;
+	private JLabel label1;
+	private JLabel label2;
+	private JLabel label3;
+	private JTextArea area0;
+	private JTextField text0;
+	private JTextField text1;
+	private JTextField text2;
+	
+	private List<Raum> raumDB = new ArrayList<Raum>();
+	
+	private dataBase db;
+
+	public lineGui(){
+		createFrame();
+		db = new dataBase();
+	}
+	
+	public void createFrame(){
+		frame = new JFrame("Räume eingeben");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		/// erstelle Gui   <Start>
+
+		// Menubar mit Einträgen und Items
+		bar = new JMenuBar();		
+		frame.setJMenuBar(bar);
+			fileMenu = new JMenu("File");
+			bar.add(fileMenu);
+				loadFile = new JMenuItem ("Load");
+				saveFile = new JMenuItem ("Save");
+				fileMenu.add(loadFile);
+				fileMenu.add(saveFile);
+	
+		// Buttons unten
+		panel0 = new JPanel();
+		panel0.setBorder(BorderFactory.createTitledBorder(""));
+		GridBagLayout gbpanel0 = new GridBagLayout();
+		GridBagConstraints gbcpanel0 = new GridBagConstraints();
+		panel0.setLayout(gbpanel0);
+
+		but0 = new JButton("OK");
+		gbcpanel0.gridx = 18;
+		gbcpanel0.gridy = 2;
+		gbcpanel0.gridwidth = 1;
+		gbcpanel0.gridheight = 1;
+		gbcpanel0.fill = GridBagConstraints.BOTH;
+		gbcpanel0.weightx = 1;
+		gbcpanel0.weighty = 0;
+		gbcpanel0.anchor = GridBagConstraints.NORTH;
+		gbpanel0.setConstraints(but0, gbcpanel0);
+		panel0.add(but0);
+		
+
+		label0 = new JLabel("Gebäude");
+		gbcpanel0.gridx = 6;
+		gbcpanel0.gridy = 1;
+		gbcpanel0.gridwidth = 3;
+		gbcpanel0.gridheight = 1;
+		gbcpanel0.fill = GridBagConstraints.BOTH;
+		gbcpanel0.weightx = 1;
+		gbcpanel0.weighty = 0;
+		gbcpanel0.anchor = GridBagConstraints.NORTH;
+		gbpanel0.setConstraints(label0, gbcpanel0);
+		panel0.add(label0);
+
+	label1 = new JLabel("Raum");
+	gbcpanel0.gridx = 1;
+	gbcpanel0.gridy = 1;
+	gbcpanel0.gridwidth = 3;
+	gbcpanel0.gridheight = 1;
+	gbcpanel0.fill = GridBagConstraints.BOTH;
+	gbcpanel0.weightx = 1;
+	gbcpanel0.weighty = 0;
+	gbcpanel0.anchor = GridBagConstraints.NORTH;
+	gbpanel0.setConstraints(label1, gbcpanel0);
+	panel0.add(label1);
+
+	label2 = new JLabel("Kommentar");
+	gbcpanel0.gridx = 11;
+	gbcpanel0.gridy = 1;
+	gbcpanel0.gridwidth = 5;
+	gbcpanel0.gridheight = 1;
+	gbcpanel0.fill = GridBagConstraints.BOTH;
+	gbcpanel0.weightx = 1;
+	gbcpanel0.weighty = 0;
+	gbcpanel0.anchor = GridBagConstraints.NORTH;
+	gbpanel0.setConstraints(label2, gbcpanel0);
+	panel0.add(label2);
+
+	label3 = new JLabel("List:");
+	gbcpanel0.gridx = 1;
+	gbcpanel0.gridy = 4;
+	gbcpanel0.gridwidth = 4;
+	gbcpanel0.gridheight = 1;
+	gbcpanel0.fill = GridBagConstraints.BOTH;
+	gbcpanel0.weightx = 1;
+	gbcpanel0.weighty = 0;
+	gbcpanel0.anchor = GridBagConstraints.NORTH;
+	gbpanel0.setConstraints(label3, gbcpanel0);
+	panel0.add(label3);
+
+	area0 = new JTextArea(8,20);
+	JScrollPane scrollPane = new JScrollPane(area0);
+	gbcpanel0.gridx = 1;
+	gbcpanel0.gridy = 5;
+	gbcpanel0.gridwidth = 18;
+	gbcpanel0.gridheight = 14;
+	gbcpanel0.fill = GridBagConstraints.BOTH;
+	gbcpanel0.weightx = 1;
+	gbcpanel0.weighty = 0;
+	gbcpanel0.anchor = GridBagConstraints.NORTH;
+	//gbpanel0.setConstraints(area0, gbcpanel0);
+	gbpanel0.setConstraints(scrollPane, gbcpanel0);
+	panel0.add(scrollPane);
+
+	text0 = new JTextField();
+	gbcpanel0.gridx = 1;
+	gbcpanel0.gridy = 2;
+	gbcpanel0.gridwidth = 4;
+	gbcpanel0.gridheight = 1;
+	gbcpanel0.fill = GridBagConstraints.BOTH;
+	gbcpanel0.weightx = 1;
+	gbcpanel0.weighty = 0;
+	gbcpanel0.anchor = GridBagConstraints.NORTH;
+	gbpanel0.setConstraints(text0, gbcpanel0);
+	panel0.add(text0);
+
+	text1 = new JTextField();
+	gbcpanel0.gridx = 6;
+	gbcpanel0.gridy = 2;
+	gbcpanel0.gridwidth = 4;
+	gbcpanel0.gridheight = 1;
+	gbcpanel0.fill = GridBagConstraints.BOTH;
+	gbcpanel0.weightx = 1;
+	gbcpanel0.weighty = 0;
+	gbcpanel0.anchor = GridBagConstraints.NORTH;
+	gbpanel0.setConstraints(text1, gbcpanel0);
+	panel0.add(text1);
+
+	text2 = new JTextField();
+	gbcpanel0.gridx = 11;
+	gbcpanel0.gridy = 2;
+	gbcpanel0.gridwidth = 6;
+	gbcpanel0.gridheight = 1;
+	gbcpanel0.fill = GridBagConstraints.BOTH;
+	gbcpanel0.weightx = 1;
+	gbcpanel0.weighty = 0;
+	gbcpanel0.anchor = GridBagConstraints.NORTH;
+	gbpanel0.setConstraints(text2, gbcpanel0);
+	panel0.add(text2);
+		
+	frame.add(panel0);
+	frame.setSize(200, 300);
+	frame.pack();
+	frame.setVisible(true);
+	// erstelle Gui   <End>
+	
+	/// füge Action hinzu ----------------------------------
+	
+	// Button Raum Eingabe
+	but0.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.println(text0.getText());
+			raumDB.add(new Raum(text0.getText(),text1.getText(),text2.getText()));
+			updateText();
+		}
+	});
+	
+	// load File
+	loadFile.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			selectFile(1);
+			FileInputStream fs;
+			try {
+				fs = new FileInputStream(selectFile(1));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			ObjectInputStream is;
+			try {
+				is = new ObjectInputStream(fs);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			db = (dataBase)is.readObject();
+			is.close();
+		}
+	});
+	
+	// save File
+	saveFile.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0){
+			//selectFile(2);
+			FileOutputStream fos =null;
+			ObjectOutputStream out = null;
+			try {
+				fos = new FileOutputStream(selectFile(2));
+				out = new ObjectOutputStream(fos);
+				out.writeObject("hello");
+				out.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			
+		}
+	});
+	
+	
+	}
+
+	
+	/// Methoden ----------------------------------
+	
+	// update Textfeld aus raumDB
+	private void updateText(){
+		String tmpTextFeld;
+		tmpTextFeld = "";
+		for (int x=0;x < raumDB.size(); x++){
+			tmpTextFeld = tmpTextFeld + x + ": " + raumDB.get(x).toString() +"\n";
+		}
+		area0.setText(tmpTextFeld);
+	}
+	
+	// File auswählen
+	public String selectFile(int x){
+		String defPath= "C:\\temp\\xml\\";
+        if (x==1) 
+        	fd = new FileDialog(frame, "Load", FileDialog.LOAD);
+        else 
+        	fd = new FileDialog(frame, "Save", FileDialog.SAVE);
+        //fd.setFile(fileType);
+        fd.setDirectory(defPath);
+        fd.setLocation(50,50);
+        fd.show();
+        return (defPath+fd.getFile());
+        
+    }
+	
+}

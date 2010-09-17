@@ -1,0 +1,43 @@
+
+public class Raum {
+	private String start;
+	private String ziel;
+	private String kommentar;
+
+	
+	public Raum(String start, String ziel, String kommentar) {
+		super();
+		this.start = start;
+		this.ziel = ziel;
+		this.kommentar = kommentar;
+	}
+	
+	public String getStart() {
+		return start;
+	}
+	
+	public void setStart(String start) {
+		this.start = start;
+	}
+	
+	public String getZiel() {
+		return ziel;
+	}
+	
+	public void setZiel(String ziel) {
+		this.ziel = ziel;
+	}
+	
+	public String getKommentar() {
+		return kommentar;
+	}
+	
+	public void setKommentar(String kommentar) {
+		this.kommentar = kommentar;
+	}
+	
+	public String toString(){
+		return start+" "+ziel+" "+kommentar;
+	}
+	
+}

@@ -1,0 +1,22 @@
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class dataBase implements Serializable{
+	private ArrayList<Raum> raumDB;
+
+	public dataBase() {
+		super();
+		raumDB = new ArrayList<Raum>();
+	}
+
+	public ArrayList<Raum> adDataBase() {
+		return raumDB;
+	}
+
+	public void setDataBase(ArrayList<Raum> dataBase) {
+		this.raumDB = dataBase;
+	}
+	
+	
+}

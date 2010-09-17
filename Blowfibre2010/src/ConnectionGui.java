@@ -1,6 +1,7 @@
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,7 +19,7 @@ public class ConnectionGui {
 	private JComboBox comboStart0;
 	private String []scomboStart0;
 	private JComboBox comboZiel1;
-	private String []scomboZiel1;
+	
 	private JTextField comment1;
 	private JButton but0;
 	private JLabel label0;
@@ -26,10 +27,12 @@ public class ConnectionGui {
 	private JLabel label2;
 	private JTable table1;
 	private JButton but2;
+	String []scomboZiel1 = {"Chocolate","Ice Cream","Apple Pie"};
 	
 	
 	public ConnectionGui() {
 		createFrame();
+		
 	}
 	
 	public void createFrame(){
@@ -46,7 +49,6 @@ public class ConnectionGui {
 		// Menubar mit Einträgen und Items
 		
 		
-		String []scomboZiel1 = {"Chocolate","Ice Cream","Apple Pie"};
 		comboZiel1 = new JComboBox(scomboZiel1);
 		gbcpanel0.gridx = 8;
 		gbcpanel0.gridy = 2;
@@ -59,7 +61,9 @@ public class ConnectionGui {
 		gbpanel0.setConstraints(comboZiel1, gbcpanel0);
 		panel0.add(comboZiel1);
 
-		
+	/*
+	 * nono 123456789
+	 */
 
 		String []scomboStart0 = {"Chocolate","Ice Cream","Apple Pie"};
 		comboStart0 = new JComboBox(scomboStart0);
@@ -165,12 +169,12 @@ public class ConnectionGui {
 		System.out.println(panel0.getComponent(0));
 	}
 	
-	public void updateCombos(ArrayList<Raum> raeume ){
+	public void updateCombos(List<Raum> raumDB ){
 		
-		String []scomboStart0 = null;
+		String []scomboZiel1 = null;
 		//[]scomboZiel1 = null;
-		for (int x =0; x< raeume.size(); x++){
-			scomboStart0[x] = raeume.get(x).toString();
+		for (int x =0; x< raumDB.size(); x++){
+			scomboZiel1[x] = raumDB.get(x).toString();
 			
 		}
 		//panel0.

@@ -26,6 +26,7 @@ import javax.swing.JTextField;
 
 public class raumGui {
 	private JFrame frame;
+	private ConnectionGui conWindow;
 	
 	private JMenuBar bar;
 	private JMenu fileMenu;
@@ -43,7 +44,7 @@ public class raumGui {
 	private JTextField text1;
 	private JTextField text2;
 	
-	private List<Raum> raumDB; 
+	public List<Raum> raumDB; 
 	private List<Connection> connDB;
 	
 	//public dataBase db;
@@ -53,6 +54,7 @@ public class raumGui {
 		// db = new dataBase();
 		raumDB = new ArrayList<Raum>();
 		connDB = new ArrayList<Connection>();
+		conWindow = new ConnectionGui();
 	}
 	
 	public void createFrame(){
@@ -212,6 +214,7 @@ public class raumGui {
 	
 	// load File
 	loadFile.addActionListener(new ActionListener() {
+		@SuppressWarnings("unchecked")
 		public void actionPerformed(ActionEvent arg0) {
 			raumDB = null;
 			FileInputStream fs = null;
@@ -239,7 +242,7 @@ public class raumGui {
 			}
 			System.out.println(raumDB.toString());
 			updateText();
-			
+			conWindow.updateCombos(raumDB);
 		}
 	});
 	
@@ -276,6 +279,7 @@ public class raumGui {
 			tmpTextFeld = tmpTextFeld + x + ": " + raumDB.get(x).toString() +"\n";
 		}
 		area0.setText(tmpTextFeld);
+		
 	}
 	
 	// File auswählen
